@@ -1,0 +1,184 @@
+/* --- CSS VARIABLES FOR THEMES --- */
+:root {
+    /* Default Theme (Matcha - Refined) */
+    --bg-color: #F7F9F8;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --primary: #86C289;
+    /* Slightly more muted matcha */
+    --primary-dark: #6CA66F;
+    --text-main: #1A202C;
+    --text-muted: #8F9FA8;
+    --shadow-color: rgba(134, 194, 137, 0.15);
+    --backdrop-blur: 20px;
+    --font-ui: 'Inter', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
+    --radius-lg: 28px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
+}
+
+/* Themes Data Attributes */
+[data-theme="berry"] {
+    --bg-color: #FDF7F8;
+    --primary: #F4ACB7;
+    --primary-dark: #D98C99;
+    --shadow-color: rgba(244, 172, 183, 0.15);
+}
+
+[data-theme="ocean"] {
+    --bg-color: #F2F8F8;
+    --primary: #7BC1B9;
+    --primary-dark: #5A9E96;
+    --shadow-color: rgba(123, 193, 185, 0.15);
+}
+
+[data-theme="sunset"] {
+    --bg-color: #FCF7F4;
+    --primary: #F2AFA0;
+    --primary-dark: #D9897A;
+    --shadow-color: rgba(242, 175, 160, 0.15);
+}
+
+[data-theme="lavender"] {
+    --bg-color: #F9F6FD;
+    --primary: #CFA6F3;
+    --primary-dark: #AC82D1;
+    --shadow-color: rgba(207, 166, 243, 0.15);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-ui);
+    transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1), color 0.6s ease;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.015em;
+}
+
+/* Soft Card Styling */
+.soft-card {
+    background-color: var(--card-bg);
+    box-shadow:
+        0 20px 50px -15px rgba(0, 0, 0, 0.03),
+        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(var(--backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur));
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 8px 20px -6px var(--shadow-color);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 24px -8px var(--shadow-color);
+}
+
+.btn-secondary {
+    background-color: #F1F3F5;
+    color: #64748B;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.btn-secondary:hover {
+    background-color: #FFFFFF;
+    color: var(--text-main);
+    border-color: #E2E8F0;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Typography Helper */
+.font-mono-nums {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+}
+
+/* Custom Scrollbar hide */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Tab Animation */
+.tab-active {
+    color: white;
+    background-color: var(--text-main);
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.tab-inactive {
+    color: var(--text-muted);
+    background-color: transparent;
+    font-weight: 500;
+}
+
+.tab-inactive:hover {
+    color: var(--text-main);
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Input styling for Timer */
+.time-input {
+    border: none;
+    border-bottom: 2px solid #E2E8F0;
+    background: transparent;
+    color: var(--text-main);
+    transition: all 0.3s ease;
+    border-radius: 0;
+}
+
+.time-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: transparent;
+    /* Keep transparent for minimalist look */
+}
+
+/* Hapus arrow pada input number */
+.time-input::-webkit-outer-spin-button,
+.time-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Animasi Transisi Halaman */
+.fade-in {
+    animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Theme Switcher specific styles */
+.theme-dot {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-dot:hover {
+    transform: scale(1.2);
+}
