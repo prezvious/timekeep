@@ -1,174 +1,471 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Keeper</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A quiet workspace for your time. A precise stopwatch with laps and a countdown timer in a soft, distraction-free interface."
+    />
+    <meta name="theme-color" content="#f6f6f6" />
+    <title>TimeKeep — A little space to focus</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500;700&display=swap"
-        rel="stylesheet">
-
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body
-    class="min-h-screen flex flex-col items-center justify-center p-4 selection:bg-[var(--primary)] selection:text-white">
-
-    <div
-        class="absolute top-6 right-6 flex gap-3 p-2 bg-white/40 backdrop-blur-md rounded-full shadow-sm z-50 border border-white/20">
-        <button onclick="setTheme('matcha')" class="theme-dot w-5 h-5 rounded-full shadow-sm"
-            style="background-color: #86C289;" title="Matcha"></button>
-        <button onclick="setTheme('berry')" class="theme-dot w-5 h-5 rounded-full shadow-sm"
-            style="background-color: #F4ACB7;" title="Berry"></button>
-        <button onclick="setTheme('ocean')" class="theme-dot w-5 h-5 rounded-full shadow-sm"
-            style="background-color: #7BC1B9;" title="Ocean"></button>
-        <button onclick="setTheme('sunset')" class="theme-dot w-5 h-5 rounded-full shadow-sm"
-            style="background-color: #F2AFA0;" title="Sunset"></button>
-        <button onclick="setTheme('lavender')" class="theme-dot w-5 h-5 rounded-full shadow-sm"
-            style="background-color: #CFA6F3;" title="Lavender"></button>
-    </div>
-
-    <div class="w-full max-w-md relative z-10"> <!-- z-10 to be above particles if added later -->
-
-        <div class="text-center mb-10">
-            <h1 class="text-4xl font-bold tracking-tight text-[var(--text-main)] mb-2">Time<span
-                    style="color:var(--primary)">Keep</span></h1>
-            <p class="text-sm font-medium text-[var(--text-muted)] tracking-wide uppercase opacity-80">Minimalist Timer
+      rel="preload"
+      href="assets/fonts/Manrope.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="script.js"></script>
+  </head>
+  <body data-theme="neutral">
+    <a class="skip-link" href="#workspace">Skip to workspace</a>
+    <header class="site-header page-width">
+      <a class="brand" href="./" aria-label="TimeKeep home"
+        ><span class="brand-mark"
+          ><svg class="icon" aria-hidden="true">
+            <use href="assets/icons.svg#timer"></use></svg></span
+        >TimeKeep</a
+      >
+      <div class="header-actions">
+        <span class="header-note">A moment, well spent.</span
+        ><button
+          class="appearance-button"
+          popovertarget="appearance-panel"
+          aria-label="Choose appearance"
+        >
+          <svg class="icon" aria-hidden="true">
+            <use href="assets/icons.svg#swatch-book"></use></svg
+          >Appearance<svg class="icon small-icon" aria-hidden="true">
+            <use href="assets/icons.svg#chevron-down"></use>
+          </svg>
+        </button>
+      </div>
+      <section
+        id="appearance-panel"
+        class="appearance-panel"
+        popover
+        aria-labelledby="appearance-heading"
+      >
+        <h2 id="appearance-heading">Make it yours</h2>
+        <p>Keep it neutral, or choose a little color.</p>
+        <div class="theme-options" role="group" aria-label="Color theme">
+          <button
+            class="theme-option"
+            data-theme-choice="neutral"
+            aria-pressed="true"
+          >
+            <span class="theme-swatch neutral-swatch"></span
+            ><span>Neutral<small>White &amp; charcoal</small></span
+            ><svg class="icon theme-check" aria-hidden="true">
+              <use href="assets/icons.svg#check"></use>
+            </svg>
+          </button>
+          <button
+            class="theme-option"
+            data-theme-choice="matcha"
+            aria-pressed="false"
+          >
+            <span class="theme-swatch matcha-swatch"></span
+            ><span>Matcha<small>Soft green</small></span
+            ><svg class="icon theme-check" aria-hidden="true">
+              <use href="assets/icons.svg#check"></use>
+            </svg>
+          </button>
+          <button
+            class="theme-option"
+            data-theme-choice="berry"
+            aria-pressed="false"
+          >
+            <span class="theme-swatch berry-swatch"></span
+            ><span>Berry<small>Muted rose</small></span
+            ><svg class="icon theme-check" aria-hidden="true">
+              <use href="assets/icons.svg#check"></use>
+            </svg>
+          </button>
+          <button
+            class="theme-option"
+            data-theme-choice="ocean"
+            aria-pressed="false"
+          >
+            <span class="theme-swatch ocean-swatch"></span
+            ><span>Ocean<small>Quiet teal</small></span
+            ><svg class="icon theme-check" aria-hidden="true">
+              <use href="assets/icons.svg#check"></use>
+            </svg>
+          </button>
+          <button
+            class="theme-option"
+            data-theme-choice="sunset"
+            aria-pressed="false"
+          >
+            <span class="theme-swatch sunset-swatch"></span
+            ><span>Sunset<small>Warm peach</small></span
+            ><svg class="icon theme-check" aria-hidden="true">
+              <use href="assets/icons.svg#check"></use>
+            </svg>
+          </button>
+          <button
+            class="theme-option"
+            data-theme-choice="lavender"
+            aria-pressed="false"
+          >
+            <span class="theme-swatch lavender-swatch"></span
+            ><span>Lavender<small>Gentle violet</small></span
+            ><svg class="icon theme-check" aria-hidden="true">
+              <use href="assets/icons.svg#check"></use>
+            </svg>
+          </button>
+        </div>
+      </section>
+    </header>
+    <main class="page-width" id="workspace">
+      <div class="workspace-heading">
+        <div>
+          <h1>A little space to focus.</h1>
+          <p>One task at a time. Keep the rest simple.</p>
+        </div>
+        <time id="today" class="today"></time>
+      </div>
+      <div class="workspace-grid">
+        <section class="clock-panel" aria-label="Timing workspace">
+          <div class="mode-tabs" role="tablist" aria-label="Timing mode">
+            <button
+              id="tab-stopwatch"
+              role="tab"
+              aria-selected="true"
+              aria-controls="view-stopwatch"
+              tabindex="0"
+            >
+              <svg class="icon" aria-hidden="true">
+                <use href="assets/icons.svg#timer"></use></svg
+              >Stopwatch
+            </button>
+            <button
+              id="tab-timer"
+              role="tab"
+              aria-selected="false"
+              aria-controls="view-timer"
+              tabindex="-1"
+            >
+              <svg class="icon" aria-hidden="true">
+                <use href="assets/icons.svg#hourglass"></use></svg
+              >Countdown
+            </button>
+          </div>
+          <div
+            id="view-stopwatch"
+            class="clock-view"
+            role="tabpanel"
+            aria-labelledby="tab-stopwatch"
+            tabindex="0"
+          >
+            <div class="view-heading">
+              <h2>Go at your own pace.</h2>
+              <span class="state-label" id="sw-state"
+                ><span class="state-dot"></span><span>Ready</span></span
+              >
+            </div>
+            <div class="dial" id="sw-dial">
+              <svg class="dial-art" viewBox="0 0 360 360" aria-hidden="true">
+                <circle class="dial-track" cx="180" cy="180" r="156"></circle>
+                <g class="dial-ticks" id="sw-ticks"></g>
+                <g id="sw-hand" class="dial-hand">
+                  <circle cx="180" cy="24" r="4"></circle>
+                </g>
+              </svg>
+              <div class="dial-content">
+                <span class="dial-label">Elapsed time</span>
+                <div class="stopwatch-reading">
+                  <span id="sw-display-main">00:00</span
+                  ><span class="hundredths" id="sw-display-ms">.00</span>
+                </div>
+                <span class="dial-caption" id="sw-caption"
+                  >minutes · seconds</span
+                >
+              </div>
+            </div>
+            <div class="clock-controls">
+              <button
+                class="button button-secondary"
+                id="sw-reset"
+                aria-label="Reset stopwatch"
+                disabled
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use href="assets/icons.svg#rotate-ccw"></use></svg
+                ><span class="button-label">Reset</span></button
+              ><button class="button button-primary" id="sw-toggle">
+                <svg class="icon" aria-hidden="true">
+                  <use href="assets/icons.svg#play"></use></svg
+                ><span>Start stopwatch</span></button
+              ><button
+                class="button button-secondary"
+                id="sw-lap"
+                aria-label="Record lap"
+                disabled
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use href="assets/icons.svg#flag"></use></svg
+                ><span class="button-label">Lap</span>
+              </button>
+            </div>
+            <p class="control-hint">
+              <kbd>Space</kbd> to start or pause<span class="hint-divider"
+                >·</span
+              ><kbd>L</kbd> to record a lap
             </p>
-        </div>
-
-        <div class="soft-card overflow-hidden">
-
-            <div class="flex p-3 gap-3">
-                <button onclick="switchTab('stopwatch')" id="tab-stopwatch"
-                    class="flex-1 py-3 rounded-xl text-sm transition-all duration-300 tab-active flex items-center justify-center gap-2">
-                    <i class="ph ph-stopwatch text-lg"></i> Stopwatch
-                </button>
-                <button onclick="switchTab('timer')" id="tab-timer"
-                    class="flex-1 py-3 rounded-xl text-sm transition-all duration-300 tab-inactive flex items-center justify-center gap-2">
-                    <i class="ph ph-timer text-lg"></i> Timer
-                </button>
+          </div>
+          <div
+            id="view-timer"
+            class="clock-view"
+            role="tabpanel"
+            aria-labelledby="tab-timer"
+            tabindex="0"
+            hidden
+          >
+            <div class="view-heading">
+              <h2>Make room for one thing.</h2>
+              <span class="state-label" id="tm-state"
+                ><span class="state-dot"></span><span>Ready</span></span
+              >
             </div>
-
-            <div class="p-8 min-h-[420px] flex flex-col justify-center relative">
-
-                <div id="view-stopwatch" class="fade-in w-full text-center">
-
-                    <div class="font-mono-nums text-[var(--text-main)] mb-12 select-none">
-                        <div class="text-7xl md:text-8xl font-light tracking-tighter leading-none" id="sw-display-main">
-                            00:00</div>
-                        <div
-                            class="text-3xl md:text-3xl opacity-40 mt-2 flex justify-center items-end gap-1 font-light">
-                            <span id="sw-display-seconds">00</span>
-                            <span class="text-xl opacity-30 mb-1">.</span>
-                            <span class="text-xl" id="sw-display-ms">00</span>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-center gap-6 items-center">
-                        <button onclick="resetStopwatch()"
-                            class="w-16 h-16 rounded-full btn-secondary flex items-center justify-center text-2xl shadow-sm hover:rotate-[-45deg] transition-transform"
-                            title="Reset">
-                            <i class="ph ph-arrow-counter-clockwise"></i>
-                        </button>
-                        <button onclick="toggleStopwatch()" id="sw-btn-toggle"
-                            class="w-24 h-24 rounded-[32px] btn-primary flex items-center justify-center text-4xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all">
-                            <i class="ph ph-play-fill pl-1" id="sw-icon-toggle"></i>
-                        </button>
-                        <button onclick="lapStopwatch()"
-                            class="w-16 h-16 rounded-full btn-secondary flex items-center justify-center text-2xl shadow-sm hover:scale-110 transition-transform"
-                            title="Lap">
-                            <i class="ph ph-flag"></i>
-                        </button>
-                    </div>
-
-                    <div class="mt-10 max-h-40 overflow-y-auto hide-scrollbar space-y-3 text-sm font-medium text-[var(--text-muted)]"
-                        id="sw-laps">
-                    </div>
+            <div class="dial" id="tm-dial">
+              <svg class="dial-art" viewBox="0 0 360 360" aria-hidden="true">
+                <circle class="dial-track" cx="180" cy="180" r="156"></circle>
+                <g class="dial-ticks" id="tm-ticks"></g>
+                <circle
+                  id="timer-progress"
+                  class="timer-progress"
+                  cx="180"
+                  cy="180"
+                  r="156"
+                  pathLength="100"
+                ></circle>
+              </svg>
+              <div class="dial-content">
+                <span class="dial-label" id="tm-label">Set your duration</span>
+                <div class="duration-fields" id="timer-setup">
+                  <div>
+                    <input
+                      id="input-h"
+                      type="number"
+                      min="0"
+                      max="99"
+                      step="1"
+                      value="00"
+                      inputmode="numeric"
+                      aria-describedby="timer-error"
+                    /><label for="input-h">Hours</label>
+                  </div>
+                  <span class="duration-colon" aria-hidden="true">:</span>
+                  <div>
+                    <input
+                      id="input-m"
+                      type="number"
+                      min="0"
+                      max="59"
+                      step="1"
+                      value="25"
+                      inputmode="numeric"
+                      aria-describedby="timer-error"
+                    /><label for="input-m">Minutes</label>
+                  </div>
+                  <span class="duration-colon" aria-hidden="true">:</span>
+                  <div>
+                    <input
+                      id="input-s"
+                      type="number"
+                      min="0"
+                      max="59"
+                      step="1"
+                      value="00"
+                      inputmode="numeric"
+                      aria-describedby="timer-error"
+                    /><label for="input-s">Seconds</label>
+                  </div>
                 </div>
-
-                <div id="view-timer" class="hidden fade-in w-full text-center">
-
-                    <div id="timer-setup" class="flex flex-col items-center">
-                        <div class="flex items-center gap-4 mb-10">
-                            <div class="flex flex-col items-center gap-2">
-                                <input type="number" id="input-h" placeholder="00" min="0" max="99"
-                                    class="time-input w-24 h-28 text-6xl text-center font-mono-nums font-light">
-                                <label
-                                    class="text-[10px] uppercase font-bold tracking-widest text-[var(--text-muted)]">Hour</label>
-                            </div>
-                            <span class="text-4xl font-light text-[var(--text-muted)] pb-8 opacity-30">:</span>
-                            <div class="flex flex-col items-center gap-2">
-                                <input type="number" id="input-m" placeholder="00" min="0" max="59"
-                                    class="time-input w-24 h-28 text-6xl text-center font-mono-nums font-light">
-                                <label
-                                    class="text-[10px] uppercase font-bold tracking-widest text-[var(--text-muted)]">Min</label>
-                            </div>
-                            <span class="text-4xl font-light text-[var(--text-muted)] pb-8 opacity-30">:</span>
-                            <div class="flex flex-col items-center gap-2">
-                                <input type="number" id="input-s" placeholder="00" min="0" max="59"
-                                    class="time-input w-24 h-28 text-6xl text-center font-mono-nums font-light">
-                                <label
-                                    class="text-[10px] uppercase font-bold tracking-widest text-[var(--text-muted)]">Sec</label>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-3 mb-12 overflow-x-auto w-full justify-center hide-scrollbar px-2">
-                            <button onclick="setPreset(5,0)"
-                                class="px-5 py-2.5 rounded-full bg-white border border-[var(--text-muted)]/10 text-[var(--text-muted)] text-xs font-bold hover:text-[var(--primary)] hover:border-[var(--primary)] transition-all">5m</button>
-                            <button onclick="setPreset(10,0)"
-                                class="px-5 py-2.5 rounded-full bg-white border border-[var(--text-muted)]/10 text-[var(--text-muted)] text-xs font-bold hover:text-[var(--primary)] hover:border-[var(--primary)] transition-all">10m</button>
-                            <button onclick="setPreset(25,0)"
-                                class="px-5 py-2.5 rounded-full bg-white border border-[var(--text-muted)]/10 text-[var(--text-muted)] text-xs font-bold hover:text-[var(--primary)] hover:border-[var(--primary)] transition-all">25m</button>
-                        </div>
-
-                        <button onclick="startTimer()"
-                            class="w-full py-5 rounded-2xl btn-primary text-lg font-bold shadow-lg flex items-center justify-center gap-3 hover:shadow-xl transition-all">
-                            <i class="ph ph-play"></i> START
-                        </button>
-                    </div>
-
-                    <div id="timer-running" class="hidden flex-col items-center">
-                        <div class="relative w-72 h-72 flex items-center justify-center mb-10">
-                            <svg class="w-full h-full transform -rotate-90">
-                                <circle cx="144" cy="144" r="130" stroke="var(--text-muted)" stroke-width="4"
-                                    stroke-opacity="0.1" fill="transparent" />
-                                <circle id="timer-progress" cx="144" cy="144" r="130" stroke="var(--primary)"
-                                    stroke-width="8" fill="transparent" stroke-dasharray="816.8" stroke-dashoffset="0"
-                                    stroke-linecap="round" />
-                            </svg>
-                            <div
-                                class="absolute inset-0 flex flex-col items-center justify-center font-mono-nums text-[var(--text-main)]">
-                                <div class="text-6xl font-light tracking-tighter" id="tm-display">00:00:00</div>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-center gap-4 w-full px-4">
-                            <button onclick="resetTimer()"
-                                class="flex-1 py-4 rounded-2xl btn-secondary font-bold text-sm tracking-wide uppercase">Cancel</button>
-                            <button onclick="toggleTimerPause()" id="tm-btn-pause"
-                                class="flex-1 py-4 rounded-2xl btn-primary font-bold text-sm tracking-wide uppercase shadow-lg">Pause</button>
-                        </div>
-                    </div>
-
+                <div class="countdown-reading" id="tm-display" hidden>
+                  25:00
                 </div>
-
+                <span class="dial-caption" id="tm-caption"
+                  >A small commitment to your focus.</span
+                >
+              </div>
             </div>
+            <p class="timer-error" id="timer-error" role="alert" hidden></p>
+            <div class="clock-controls timer-controls">
+              <button class="button button-secondary" id="tm-reset">
+                <svg class="icon" aria-hidden="true">
+                  <use href="assets/icons.svg#rotate-ccw"></use></svg
+                ><span>Reset</span></button
+              ><button class="button button-primary" id="tm-toggle">
+                <svg class="icon" aria-hidden="true">
+                  <use href="assets/icons.svg#play"></use></svg
+                ><span>Start countdown</span>
+              </button>
+            </div>
+            <p class="control-hint">
+              <kbd>Space</kbd> to start or pause<span class="hint-divider"
+                >·</span
+              ><kbd>R</kbd> to reset
+            </p>
+          </div>
+        </section>
+        <aside
+          class="context-panel"
+          id="lap-panel"
+          aria-labelledby="lap-heading"
+        >
+          <div class="context-heading">
+            <h2 id="lap-heading">Lap times</h2>
+            <span class="count-badge" id="lap-count">0</span>
+          </div>
+          <div class="laps-empty" id="laps-empty">
+            <span class="empty-icon"
+              ><svg class="icon" aria-hidden="true">
+                <use href="assets/icons.svg#flag"></use></svg
+            ></span>
+            <h3>Every lap tells a story.</h3>
+            <p>Start the stopwatch, then tap Lap to capture a split.</p>
+          </div>
+          <div class="lap-table-wrap" id="lap-table-wrap" hidden>
+            <table class="lap-table">
+              <caption class="sr-only">
+                Stopwatch lap splits and total elapsed time, newest first
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Lap</th>
+                  <th scope="col">Split</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody id="sw-laps"></tbody>
+            </table>
+          </div>
+          <div class="context-footer">
+            <svg class="icon small-icon" aria-hidden="true">
+              <use href="assets/icons.svg#flag"></use></svg
+            ><span>Small steps. Steady progress.</span>
+          </div>
+        </aside>
+        <aside
+          class="context-panel"
+          id="preset-panel"
+          aria-labelledby="preset-heading"
+          hidden
+        >
+          <div class="context-heading">
+            <h2 id="preset-heading">Find your rhythm</h2>
+            <svg class="icon" aria-hidden="true">
+              <use href="assets/icons.svg#hourglass"></use>
+            </svg>
+          </div>
+          <p class="preset-intro">A good place to start.</p>
+          <div class="preset-options" role="group" aria-label="Quick durations">
+            <button class="preset" data-minutes="5" aria-pressed="false">
+              <span><strong>5 min</strong><small>A quick breather</small></span
+              ><svg class="icon" aria-hidden="true">
+                <use href="assets/icons.svg#arrow-up-right"></use>
+              </svg></button
+            ><button class="preset" data-minutes="10" aria-pressed="false">
+              <span><strong>10 min</strong><small>A little reset</small></span
+              ><svg class="icon" aria-hidden="true">
+                <use href="assets/icons.svg#arrow-up-right"></use>
+              </svg></button
+            ><button class="preset" data-minutes="25" aria-pressed="true">
+              <span><strong>25 min</strong><small>Time to focus</small></span
+              ><svg class="icon" aria-hidden="true">
+                <use href="assets/icons.svg#check"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="sound-setting">
+            <div>
+              <h3>Finish with a chime</h3>
+              <p>A gentle cue when time is up.</p>
+            </div>
+            <button
+              id="sound-toggle"
+              class="icon-button"
+              aria-label="Completion sound"
+              aria-pressed="true"
+            >
+              <svg class="icon" aria-hidden="true">
+                <use href="assets/icons.svg#volume-2"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="context-footer">
+            <svg class="icon small-icon" aria-hidden="true">
+              <use href="assets/icons.svg#circle-check"></use></svg
+            ><span>Your next task has your attention.</span>
+          </div>
+        </aside>
+      </div>
+      <footer class="workspace-footer">
+        <span class="local-note"
+          ><span class="state-dot"></span>Just you and your time.</span
+        >
+        <div>
+          <button class="text-button" popovertarget="shortcut-panel">
+            <svg class="icon small-icon" aria-hidden="true">
+              <use href="assets/icons.svg#keyboard"></use></svg
+            >Shortcuts</button
+          ><a
+            href="https://github.com/prezvious/timekeep"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View source<svg class="icon small-icon" aria-hidden="true">
+              <use href="assets/icons.svg#arrow-up-right"></use></svg
+          ></a>
         </div>
-    </div>
-
-    <audio id="alarm-sound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"
-        preload="auto"></audio>
-
-    <script src="script.js"></script>
-</body>
-
+      </footer>
+      <section
+        id="shortcut-panel"
+        class="shortcut-panel"
+        popover
+        aria-labelledby="shortcut-heading"
+      >
+        <h2 id="shortcut-heading">A few handy shortcuts</h2>
+        <dl>
+          <div>
+            <dt>Start or pause</dt>
+            <dd><kbd>Space</kbd></dd>
+          </div>
+          <div>
+            <dt>Record a lap</dt>
+            <dd><kbd>L</kbd></dd>
+          </div>
+          <div>
+            <dt>Reset active clock</dt>
+            <dd><kbd>R</kbd></dd>
+          </div>
+          <div>
+            <dt>Stopwatch / countdown</dt>
+            <dd><kbd>1</kbd> / <kbd>2</kbd></dd>
+          </div>
+        </dl>
+        <p>
+          Shortcuts stay out of the way while you edit a duration. Use arrow
+          keys to move between tabs.
+        </p>
+      </section>
+    </main>
+    <div
+      class="sr-only"
+      id="live-status"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+    <noscript
+      ><p class="noscript-note">
+        Enable JavaScript to use the stopwatch and countdown.
+      </p></noscript
+    >
+  </body>
 </html>
