@@ -1,0 +1,5 @@
+.impeccable/
+node_modules/
+test-results/
+.DS_Store
+Thumbs.db
